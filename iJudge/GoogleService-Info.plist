@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>129887505692-j8chffg2h7e2uc39bq0cefi5sdvoa3vs.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.129887505692-j8chffg2h7e2uc39bq0cefi5sdvoa3vs</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCoRSTDVE-hXHo9D0ZKvHKjPYn3kIAqxCY</string>
+	<key>GCM_SENDER_ID</key>
+	<string>129887505692</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>ca.bcit.comp4977.LRN-iJudge.iJudge</string>
+	<key>PROJECT_ID</key>
+	<string>ijudge-ce9d0</string>
+	<key>STORAGE_BUCKET</key>
+	<string>ijudge-ce9d0.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:129887505692:ios:8829d973df5fa4c503fed9</string>
+	<key>DATABASE_URL</key>
+	<string>https://ijudge-ce9d0.firebaseio.com</string>
+</dict>
+</plist>

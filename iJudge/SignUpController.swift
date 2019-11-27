@@ -9,7 +9,7 @@ import FirebaseAuth
 import FirebaseDatabase
 import UIKit
 
-class SignUpController: UIViewController {
+class SignUpController: UIViewController, UITextFieldDelegate {
 
 
 
@@ -20,6 +20,19 @@ class SignUpController: UIViewController {
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var fullName: UITextField!
     var ref: DatabaseReference! = Database.database().reference()
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+      if textField == userName {
+         textField.resignFirstResponder()
+         fullName.becomeFirstResponder()
+      } else if textField == fullName{
+         textField.resignFirstResponder()
+         password.becomeFirstResponder()
+      } else if textField == password{
+         textField.resignFirstResponder()
+      }
+     return true
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +45,7 @@ class SignUpController: UIViewController {
         handle = Auth.auth().addStateDidChangeListener { (auth, user) in
           // ...
         }
+        self.addKeyboardObserver()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -39,6 +53,7 @@ class SignUpController: UIViewController {
       // [START remove_auth_listener]
       Auth.auth().removeStateDidChangeListener(handle!)
       // [END remove_auth_listener]
+        self.removeKeyboardObserver()
     }
 
     @IBAction func didCreateAccount(_ sender: AnyObject) {

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -463,9 +463,7 @@
                             <constraint firstItem="5LC-Tz-W4w" firstAttribute="leading" secondItem="Cdr-19-Yqg" secondAttribute="leading" constant="16" id="66d-wi-xhg"/>
                             <constraint firstItem="NpN-KP-rhU" firstAttribute="top" secondItem="Cdr-19-Yqg" secondAttribute="top" constant="20" id="Anv-k4-LFN"/>
                             <constraint firstItem="Cdr-19-Yqg" firstAttribute="trailing" secondItem="NpN-KP-rhU" secondAttribute="trailing" constant="16" id="Zif-2P-YYl"/>
-                            <constraint firstItem="Dbw-lv-HHI" firstAttribute="top" secondItem="Cdr-19-Yqg" secondAttribute="top" constant="84" id="cVe-3Q-Ucg"/>
                             <constraint firstItem="Cdr-19-Yqg" firstAttribute="trailing" secondItem="5LC-Tz-W4w" secondAttribute="trailing" constant="16" id="kbk-l2-2dc"/>
-                            <constraint firstItem="Cdr-19-Yqg" firstAttribute="bottom" secondItem="5LC-Tz-W4w" secondAttribute="bottom" constant="424" id="s0T-ln-fg2"/>
                             <constraint firstItem="NpN-KP-rhU" firstAttribute="leading" secondItem="Cdr-19-Yqg" secondAttribute="leading" constant="16" id="sH9-Rg-iAn"/>
                             <constraint firstItem="Cdr-19-Yqg" firstAttribute="trailing" secondItem="Dbw-lv-HHI" secondAttribute="trailing" constant="16" id="uOW-sN-hXx"/>
                             <constraint firstItem="Cdr-19-Yqg" firstAttribute="bottom" secondItem="Dbw-lv-HHI" secondAttribute="bottom" constant="20" id="wRb-Tm-CPn"/>
@@ -475,6 +473,7 @@
                     </view>
                     <connections>
                         <outlet property="userName" destination="c6h-5v-8Gh" id="8kk-Tz-5Gg"/>
+                        <outlet property="userScore" destination="tIi-Ka-lQF" id="S7l-ta-Bxa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SDS-pl-3QB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -483,10 +482,11 @@
         </scene>
     </scenes>
     <resources>
-        <image name="smiley.fill" catalog="system" width="32" height="32"/>
+        <image name="smiley.fill" catalog="system" width="64" height="60"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Y6y-g0-Acl"/>
-        <segue reference="sm6-kP-d2M"/>
+        <segue reference="wGw-wB-NYk"/>
+        <segue reference="RVV-Vc-ZBo"/>
+        <segue reference="e9E-mx-ytu"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -1,28 +1,18 @@
 //
-//  OtherProfileController.swift
+//  UserReview.swift
 //  iJudge
 //
-//  Created by Ryan S on 2019-10-10.
+//  Created by Ryan Salas on 2019-11-27.
 //  Copyright © 2019 BCIT. All rights reserved.
 //
 
 import UIKit
 
-class OtherProfileController: UIViewController {
+class UserReview: UIViewController {
 
-    @IBOutlet weak var commentScore: UILabel!
-    @IBOutlet weak var ratingSlider: UISlider!
-    let step: Float = 10
-    
-    @IBAction func changeRating(_ sender: UISlider) {
-        let roundedValue = round(sender.value * step)
-
-        commentScore.text = String(format:"%.0f", roundedValue)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        ratingSlider.setValue(0, animated: false)
+
         // Do any additional setup after loading the view.
     }
     

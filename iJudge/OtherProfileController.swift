@@ -8,11 +8,30 @@
 
 import UIKit
 
-class OtherProfileController: UIViewController {
+class OtherProfileController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var commentScore: UILabel!
     @IBOutlet weak var ratingSlider: UISlider!
+    @IBOutlet weak var commentField: UITextField!
+    
     let step: Float = 10
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+      if textField == commentField{
+         textField.resignFirstResponder()
+      }
+     return true
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.addKeyboardObserver()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+      super.viewWillDisappear(animated)
+        self.removeKeyboardObserver()
+    }
     
     @IBAction func changeRating(_ sender: UISlider) {
         let roundedValue = round(sender.value * step)

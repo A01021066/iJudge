@@ -10,11 +10,15 @@ import UIKit
 
 class OtherProfileController: UIViewController, UITextFieldDelegate {
 
+    @IBOutlet weak var submit: UIButton!
     @IBOutlet weak var commentScore: UILabel!
     @IBOutlet weak var ratingSlider: UISlider!
     @IBOutlet weak var commentField: UITextField!
     
     let step: Float = 10
+    var userId: String?
+    @IBOutlet weak var name: UILabel!
+    
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
       if textField == commentField{
@@ -39,21 +43,17 @@ class OtherProfileController: UIViewController, UITextFieldDelegate {
         commentScore.text = String(format:"%.0f", roundedValue)
     }
     
+    @IBAction func submitRating(_ sender: UIButton) {
+        
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         ratingSlider.setValue(0, animated: false)
+        name.text = userId
         // Do any additional setup after loading the view.
     }
     
+    
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

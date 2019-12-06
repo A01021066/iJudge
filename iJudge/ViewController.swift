@@ -98,6 +98,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var userName: UITextField!
     @IBOutlet weak var password: UITextField!
     var otherUsers : [user] = []
+    
  
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
       if textField == userName {
@@ -129,23 +130,25 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
 
     func loadOtherUsers() {
+
         ref.child("users").observeSingleEvent(of: .value, with: { (snapshot) in
             for child in snapshot.children {
                 let snap = child as! DataSnapshot
                 let userData = snap.value as? NSDictionary
                 let scoreC = userData!["scoreCount"] as? Double
                 let scoreS = userData!["scoreSum"] as? Double
-                var newUser = user()
-                newUser.id = userData!["user_id"] as? String
-                newUser.name = userData!["username"] as? String
-                if (scoreC == 0){
-                    newUser.score = "0"
-                } else {
-                    newUser.score = String((scoreS!) / (scoreC!))
+                if (userData!["email"] as? String != self.userName.text!.lowercased()){
+                    var newUser = user()
+                    newUser.id = userData!["user_id"] as? String
+                    newUser.name = userData!["username"] as? String
+                    if (scoreC == 0){
+                        newUser.score = "0"
+                    } else {
+                        newUser.score = String(format: "%.1f",(scoreS!) / (scoreC!))
+                    }
+                    self.otherUsers.append(newUser)
                 }
-                self.otherUsers.append(newUser)
             }
-            print(self.otherUsers)
         })
     }
     
@@ -177,8 +180,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
     {
         if segue.destination is JudgeController
         {
-            let otherPage = segue.destination as? JudgeController
-            otherPage?.otherUsers = self.otherUsers
+
+                let otherPage = segue.destination as? JudgeController
+                otherPage?.otherUsers = self.otherUsers
+            
         }
     }
     

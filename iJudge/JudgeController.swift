@@ -18,24 +18,48 @@ class JudgeController: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var userScore: UILabel!
-
-    var otherUsers : [user] = []
     
+    var comments : [String] = []
+    var otherUsers : [user] = []
+    var uid = Auth.auth().currentUser?.uid
+    var ratingID : Int = -1
 
 
     override func viewDidLoad() {
-        _ = Auth.auth().currentUser?.uid
+
         super.viewDidLoad()
-        if(otherUsers.count == 0){
-            loadCurrentUserNameScore()
-        }
+        loadCurrentUserNameScore()
         setTableViewDelegate()
         tableView.reloadData()
+        loadComments()
     }
     
+    func loadOtherUsers() {
+        self.otherUsers = []
+        ref.child("users").observeSingleEvent(of: .value, with: { (snapshot) in
+            for child in snapshot.children {
+                let snap = child as! DataSnapshot
+                let userData = snap.value as? NSDictionary
+                let scoreC = userData!["scoreCount"] as? Double
+                let scoreS = userData!["scoreSum"] as? Double
+                if (userData!["user_id"] as? String != Auth.auth().currentUser?.uid){
+                    var newUser = user()
+                    newUser.id = userData!["user_id"] as? String
+                    newUser.name = userData!["username"] as? String
+                    if (scoreC == 0){
+                        newUser.score = "0"
+                    } else {
+                        newUser.score = String((scoreS!) / (scoreC!))
+                    }
+                    self.otherUsers.append(newUser)
+                }
+            }
+        })
+    }
     
     func loadCurrentUserNameScore() {
         let uid = Auth.auth().currentUser?.uid
+
         ref.child("users").child(uid!).observeSingleEvent(of: .value, with: { (snapshot) in
             
         // Get user value
@@ -48,7 +72,7 @@ class JudgeController: UIViewController, UITableViewDelegate, UITableViewDataSou
         } else {
             let scoreSum = value?["scoreSum"] as? Int
             let score = Double(Double(scoreSum!) / Double(scoreCount!))
-            self.userScore.text = String(score)
+            self.userScore.text = String(format: "%.1f", score)
         }
 
           }) { (error) in
@@ -73,17 +97,29 @@ class JudgeController: UIViewController, UITableViewDelegate, UITableViewDataSou
         self.performSegue(withIdentifier: "signOutSegue", sender: self)
     }
     
-
+    @IBAction func goToMyProfile(_ sender: UIButton) {
+        self.performSegue(withIdentifier: "myProfileSegue", sender: Any?.self
+        )
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
+        
         if segue.destination is OtherProfileController
         {
             let otherPage = segue.destination as? OtherProfileController
-            otherPage?.userId = "Test"
-        }
+            otherPage?.userID = self.ratingID - 100
+            otherPage?.otherUsers = self.otherUsers
+        } else if segue.destination is MyProfileController
+        {
+            let otherPage = segue.destination as? MyProfileController
+            otherPage?.otherUsers = self.otherUsers
+            otherPage?.comments = self.comments
+        } 
     }
 
     @IBAction func rate(_ sender: UIButton) {
+        ratingID = sender.tag
         self.performSegue(withIdentifier: "rateSegue", sender: Any?.self)
     }
    
@@ -98,16 +134,26 @@ class JudgeController: UIViewController, UITableViewDelegate, UITableViewDataSou
        }
        
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("cell called")
         let cell = tableView.dequeueReusableCell(withIdentifier: "userCell", for: indexPath)
-        let name = cell.viewWithTag(1) as! UILabel
-//        name.text = "WTF"
-        name.text = self.otherUsers[indexPath.row].name
-        let score = cell.viewWithTag(2) as! UILabel
-//        score.text = "Hello"
-        score.text = self.otherUsers[indexPath.row].score
-        return cell
+            let name = cell.viewWithTag(1) as! UILabel
+            name.text = self.otherUsers[indexPath.row].name
+            let score = cell.viewWithTag(2) as! UILabel
+            score.text = self.otherUsers[indexPath.row].score
+            let button = cell.viewWithTag(3) as! UIButton
+            button.tag = indexPath.row + 100
+            print(button.tag)
+            return cell
        }
+    
+    func loadComments(){
+        ref.child("users").child(self.uid!).child("comments").observeSingleEvent(of: .value, with: { (snapshot) in
+            for elem in snapshot.children {
+                let snap = elem as! DataSnapshot
+                let comment = snap.value as! String
+                self.comments.append(comment)
+            }
+        })
+    }
     
     func setTableViewDelegate(){
         tableView.delegate = self

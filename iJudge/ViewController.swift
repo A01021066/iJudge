@@ -8,6 +8,9 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseDatabase
+var ref: DatabaseReference! = Database.database().reference()
+
 
 public extension UIResponder {
 
@@ -82,12 +85,19 @@ extension UIViewController {
             self.view.frame.origin.y = newHeight
         }
     }
+    struct user {
+        var name: String?
+        var id: String?
+        var score : String?
+        var comment: [String]?
+    }
 }
 
 class ViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var userName: UITextField!
     @IBOutlet weak var password: UITextField!
+    var otherUsers : [user] = []
  
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
       if textField == userName {
@@ -110,6 +120,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadOtherUsers()
         self.dismissKey()
 
         // Do any additional setup after loading the view.
@@ -117,6 +128,26 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
 
 
+    func loadOtherUsers() {
+        ref.child("users").observeSingleEvent(of: .value, with: { (snapshot) in
+            for child in snapshot.children {
+                let snap = child as! DataSnapshot
+                let userData = snap.value as? NSDictionary
+                let scoreC = userData!["scoreCount"] as? Double
+                let scoreS = userData!["scoreSum"] as? Double
+                var newUser = user()
+                newUser.id = userData!["user_id"] as? String
+                newUser.name = userData!["username"] as? String
+                if (scoreC == 0){
+                    newUser.score = "0"
+                } else {
+                    newUser.score = String((scoreS!) / (scoreC!))
+                }
+                self.otherUsers.append(newUser)
+            }
+            print(self.otherUsers)
+        })
+    }
     
     @IBAction func signIn(_ sender: Any) {
         Auth.auth().signIn(withEmail: userName.text!, password: password.text!) { [weak self] authResult, error in
@@ -140,6 +171,15 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
 
           }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        if segue.destination is JudgeController
+        {
+            let otherPage = segue.destination as? JudgeController
+            otherPage?.otherUsers = self.otherUsers
+        }
     }
     
 

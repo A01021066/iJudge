@@ -9,6 +9,7 @@ import FirebaseAuth
 import FirebaseDatabase
 import UIKit
 
+
 class SignUpController: UIViewController, UITextFieldDelegate {
 
 

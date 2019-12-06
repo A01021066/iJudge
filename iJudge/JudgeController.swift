@@ -9,38 +9,52 @@
 import UIKit
 import FirebaseAuth
 import FirebaseDatabase
-var ref: DatabaseReference! = Database.database().reference()
 
 
-class JudgeController: UIViewController {
+
+class JudgeController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+   
     
-    class user {
-        var name: String?
-        var id: String?
-        var scoreCount: integer_t?
-        var scoreSum: integer_t?
-        var comment: [String]?
-        init(nameString: String?, idString: String?, scoreCountInt: integer_t?, scoreSumInt: integer_t?, commentArray: [String]?) {
-            name = nameString
-            id = idString
-            scoreCount = scoreCountInt
-            scoreSum = scoreSumInt
-            comment = commentArray
-        }
-        
-    }
+    @IBOutlet weak var userName: UILabel!
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var userScore: UILabel!
+    var otherUsers : [user] = []
+
+
 
     override func viewDidLoad() {
+        _ = Auth.auth().currentUser?.uid
         super.viewDidLoad()
-            let uid = Auth.auth().currentUser?.uid
-        ref.child("users").observeSingleEvent(of: .value, with: { (snapshot) in
-            for child in snapshot.children {
-                let snap = child as! DataSnapshot
-                let key = snap.key
-                let value = snap.value
-                print("key = \(key)  value = \(value!)")
-            }
-        })
+        loadCurrentUserNameScore()
+        setTableViewDelegate()
+        tableView.reloadData()
+    }
+    
+    
+    func loadCurrentUserNameScore() {
+        let uid = Auth.auth().currentUser?.uid
+        ref.child("users").child(uid!).observeSingleEvent(of: .value, with: { (snapshot) in
+            
+        // Get user value
+        let value = snapshot.value as? NSDictionary
+        let username = value?["username"] as? String ?? ""
+        self.userName.text = username
+        let scoreCount = value?["scoreCount"] as? Int
+        if (scoreCount == 0) {
+            self.userScore.text = "0"
+        } else {
+            let scoreSum = value?["scoreSum"] as? Int
+            let score = Double(Double(scoreSum!) / Double(scoreCount!))
+            self.userScore.text = String(score)
+        }
+
+          }) { (error) in
+            print(error.localizedDescription)
+        }
+    }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 345
     }
 
         // Do any additional setup after loading the view
@@ -69,14 +83,31 @@ class JudgeController: UIViewController {
     @IBAction func rate(_ sender: UIButton) {
         self.performSegue(withIdentifier: "rateSegue", sender: Any?.self)
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+   
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
     }
-    */
-
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("numberofrow called")
+        return self.otherUsers.count
+//        return 50
+       }
+       
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        print("cell called")
+        let cell = tableView.dequeueReusableCell(withIdentifier: "userCell", for: indexPath)
+        var name = cell.viewWithTag(1) as! UILabel
+//        name.text = "WTF"
+        name.text = self.otherUsers[indexPath.row].name
+        var score = cell.viewWithTag(2) as! UILabel
+//        score.text = "Hello"
+        score.text = self.otherUsers[indexPath.row].score
+        return cell
+       }
+    
+    func setTableViewDelegate(){
+        tableView.delegate = self
+        tableView.dataSource = self
+    }
 }

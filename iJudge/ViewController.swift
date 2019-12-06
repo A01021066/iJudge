@@ -121,7 +121,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadOtherUsers()
         self.dismissKey()
 
         // Do any additional setup after loading the view.
@@ -129,28 +128,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
 
 
-    func loadOtherUsers() {
-
-        ref.child("users").observeSingleEvent(of: .value, with: { (snapshot) in
-            for child in snapshot.children {
-                let snap = child as! DataSnapshot
-                let userData = snap.value as? NSDictionary
-                let scoreC = userData!["scoreCount"] as? Double
-                let scoreS = userData!["scoreSum"] as? Double
-                if (userData!["email"] as? String != self.userName.text!.lowercased()){
-                    var newUser = user()
-                    newUser.id = userData!["user_id"] as? String
-                    newUser.name = userData!["username"] as? String
-                    if (scoreC == 0){
-                        newUser.score = "0"
-                    } else {
-                        newUser.score = String(format: "%.1f",(scoreS!) / (scoreC!))
-                    }
-                    self.otherUsers.append(newUser)
-                }
-            }
-        })
-    }
     
     @IBAction func signIn(_ sender: Any) {
         Auth.auth().signIn(withEmail: userName.text!, password: password.text!) { [weak self] authResult, error in
@@ -175,18 +152,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
           }
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-    {
-        if segue.destination is JudgeController
-        {
-
-                let otherPage = segue.destination as? JudgeController
-                otherPage?.otherUsers = self.otherUsers
-            
-        }
-    }
-    
 
 }
 

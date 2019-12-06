@@ -34,29 +34,6 @@ class JudgeController: UIViewController, UITableViewDelegate, UITableViewDataSou
         loadComments()
     }
     
-    func loadOtherUsers() {
-        self.otherUsers = []
-        ref.child("users").observeSingleEvent(of: .value, with: { (snapshot) in
-            for child in snapshot.children {
-                let snap = child as! DataSnapshot
-                let userData = snap.value as? NSDictionary
-                let scoreC = userData!["scoreCount"] as? Double
-                let scoreS = userData!["scoreSum"] as? Double
-                if (userData!["user_id"] as? String != Auth.auth().currentUser?.uid){
-                    var newUser = user()
-                    newUser.id = userData!["user_id"] as? String
-                    newUser.name = userData!["username"] as? String
-                    if (scoreC == 0){
-                        newUser.score = "0"
-                    } else {
-                        newUser.score = String((scoreS!) / (scoreC!))
-                    }
-                    self.otherUsers.append(newUser)
-                }
-            }
-        })
-    }
-    
     func loadCurrentUserNameScore() {
         let uid = Auth.auth().currentUser?.uid
 
@@ -93,7 +70,7 @@ class JudgeController: UIViewController, UITableViewDelegate, UITableViewDataSou
           print (signOutError)
             
         }
-        print("signed out")
+
         self.performSegue(withIdentifier: "signOutSegue", sender: self)
     }
     
@@ -128,7 +105,7 @@ class JudgeController: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("numberofrow called")
+
         return self.otherUsers.count
 //        return 50
        }
@@ -141,7 +118,6 @@ class JudgeController: UIViewController, UITableViewDelegate, UITableViewDataSou
             score.text = self.otherUsers[indexPath.row].score
             let button = cell.viewWithTag(3) as! UIButton
             button.tag = indexPath.row + 100
-            print(button.tag)
             return cell
        }
     

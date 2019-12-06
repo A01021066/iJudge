@@ -53,7 +53,7 @@
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vZy-xa-agS">
                                                         <rect key="frame" x="0.0" y="103" width="382" height="34"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits"/>
+                                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                                         <connections>
                                                             <outlet property="delegate" destination="BYZ-38-t0r" id="gXj-1Q-FG3"/>
                                                         </connections>
@@ -105,12 +105,30 @@
                     <connections>
                         <outlet property="password" destination="vZy-xa-agS" id="Qmi-PQ-oGv"/>
                         <outlet property="userName" destination="PHf-gf-nQQ" id="4Iz-Rg-k4d"/>
-                        <segue destination="cBC-ig-5fO" kind="presentation" identifier="signInSegue" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="uUH-h0-s7f"/>
+                        <segue destination="srt-qn-FsK" kind="presentation" identifier="signInSegue" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="ykB-nY-Zi2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="131.25" y="138.75"/>
+            <point key="canvasLocation" x="-736" y="-530"/>
+        </scene>
+        <!--Buffer View Controller-->
+        <scene sceneID="tkb-dG-cmY">
+            <objects>
+                <viewController id="srt-qn-FsK" customClass="BufferViewController" customModule="iJudge" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Awm-5d-xdp">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <viewLayoutGuide key="safeArea" id="Bi4-hG-WMy"/>
+                    </view>
+                    <connections>
+                        <segue destination="cBC-ig-5fO" kind="presentation" identifier="homePageSegue" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="wje-YV-OAX"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Osn-kN-ykz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1597" y="738"/>
         </scene>
         <!--Sign Up Controller-->
         <scene sceneID="7Sd-md-lAW">
@@ -184,7 +202,7 @@
                                                             <constraint firstAttribute="height" constant="37" id="4VN-rz-49T"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits"/>
+                                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                                         <connections>
                                                             <outlet property="delegate" destination="SIj-Yr-JZf" id="Som-d1-lVW"/>
                                                         </connections>
@@ -546,7 +564,7 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="1hy-if-WI8">
                                                         <rect key="frame" x="0.0" y="106.5" width="288" height="491"/>
                                                         <subviews>
-                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Add Comment Here" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="m8i-tp-yRb">
+                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="m8i-tp-yRb">
                                                                 <rect key="frame" x="0.0" y="0.0" width="288" height="150"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="150" id="Ysq-DD-4Bh"/>
@@ -610,7 +628,6 @@
         <!--My Profile Controller-->
         <scene sceneID="9aU-3m-kwh">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="SDS-pl-3QB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController id="09l-KA-Ax4" customClass="MyProfileController" customModule="iJudge" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7Li-zh-Erw">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -736,6 +753,7 @@
                         <segue destination="BYZ-38-t0r" kind="presentation" identifier="signOutSegue" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="CWk-rn-LGe"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SDS-pl-3QB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1113.0434782608697" y="1056.0267857142858"/>
         </scene>

@@ -72,8 +72,6 @@ class SignUpController: UIViewController, UITextFieldDelegate {
             self.ref.child("users/\(user.uid)/scoreSum").setValue(0)
             self.ref.child("users/\(user.uid)/scoreCount").setValue(0)
             self.ref.child("users/\(user.uid)/email").setValue(self.userName.text!.lowercased())
-                print("\(user.email!) created")
-            print("\(user.uid)")
             self.performSegue(withIdentifier: "registerSegue", sender: self)
             }
     }

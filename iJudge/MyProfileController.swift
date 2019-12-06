@@ -32,7 +32,6 @@ class MyProfileController: UIViewController, UITableViewDelegate, UITableViewDat
         let value = snapshot.value as? NSDictionary
         let username = value?["username"] as? String ?? ""
         self.userName.text = username
-        print(username)
         let scoreCount = value?["scoreCount"] as? Int
         if (scoreCount == 0) {
             self.userScore.text = "0"
@@ -56,28 +55,6 @@ class MyProfileController: UIViewController, UITableViewDelegate, UITableViewDat
         }
     }
     
-    func loadOtherUsers() {
-                self.otherUsers = []
-        ref.child("users").observeSingleEvent(of: .value, with: { (snapshot) in
-            for child in snapshot.children {
-                let snap = child as! DataSnapshot
-                let userData = snap.value as? NSDictionary
-                let scoreC = userData!["scoreCount"] as? Double
-                let scoreS = userData!["scoreSum"] as? Double
-                if (userData!["user_id"] as? String != Auth.auth().currentUser?.uid){
-                    var newUser = user()
-                    newUser.id = userData!["user_id"] as? String
-                    newUser.name = userData!["username"] as? String
-                    if (scoreC == 0){
-                        newUser.score = "0"
-                    } else {
-                        newUser.score = String((scoreS!) / (scoreC!))
-                    }
-                    self.otherUsers.append(newUser)
-                }
-            }
-        })
-    }
     
     @IBAction func signOut(_ sender: UIButton) {
         do {
@@ -86,13 +63,11 @@ class MyProfileController: UIViewController, UITableViewDelegate, UITableViewDat
           print (signOutError)
             
         }
-        print("signed out")
         self.performSegue(withIdentifier: "signOutSegue", sender: self)
     }
     
 
     @IBAction func back(_ sender: UIButton) {
-        print(self.otherUsers)
         self.performSegue(withIdentifier: "backSegue", sender: Any?.self)
     }
     

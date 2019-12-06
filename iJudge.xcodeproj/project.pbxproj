@@ -19,6 +19,7 @@
 		9488FE6823502A1B0042325D /* SignUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9488FE6723502A1B0042325D /* SignUpController.swift */; };
 		9488FE6A23502D240042325D /* MyProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9488FE6923502D240042325D /* MyProfileController.swift */; };
 		9488FE6C23502D3D0042325D /* OtherProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9488FE6B23502D3D0042325D /* OtherProfileController.swift */; };
+		BF06C0C3239A830C002CE9AD /* BufferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF06C0C2239A830C002CE9AD /* BufferViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,7 @@
 		9488FE6923502D240042325D /* MyProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileController.swift; sourceTree = "<group>"; };
 		9488FE6B23502D3D0042325D /* OtherProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherProfileController.swift; sourceTree = "<group>"; };
 		AAE48513DAC27048CDB72626 /* Pods_iJudge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iJudge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF06C0C2239A830C002CE9AD /* BufferViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BufferViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +84,7 @@
 				9488FE6923502D240042325D /* MyProfileController.swift */,
 				9488FE6B23502D3D0042325D /* OtherProfileController.swift */,
 				9488FE65235018620042325D /* JudgeController.swift */,
+				BF06C0C2239A830C002CE9AD /* BufferViewController.swift */,
 				9488FE57235012630042325D /* Main.storyboard */,
 				9488FE5A235012650042325D /* Assets.xcassets */,
 				9488FE5C235012650042325D /* LaunchScreen.storyboard */,
@@ -230,6 +233,7 @@
 				9488FE56235012630042325D /* ViewController.swift in Sources */,
 				9488FE52235012630042325D /* AppDelegate.swift in Sources */,
 				9488FE54235012630042325D /* SceneDelegate.swift in Sources */,
+				BF06C0C3239A830C002CE9AD /* BufferViewController.swift in Sources */,
 				9488FE66235018620042325D /* JudgeController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

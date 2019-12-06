@@ -54,6 +54,8 @@ class OtherProfileController: UIViewController, UITextFieldDelegate {
             let value = snapshot.value as? NSDictionary
             let scoreCount = value?["scoreCount"] as? Int
             let scoreSum = value?["scoreSum"] as? Int
+            let scoreC = value?["scoreCount"] as? Double
+            let scoreS = value?["scoreSum"] as? Double
             var comments: [String] = []
             if (value?["comments"] == nil){
                 comments.append(self.commentField.text!)
@@ -67,7 +69,7 @@ class OtherProfileController: UIViewController, UITextFieldDelegate {
             }
             self.ref.child("users/\(uid!)/scoreCount").setValue(scoreCount!+1)
             self.ref.child("users/\(uid!)/scoreSum").setValue(scoreSum! + score)
-
+            self.userScore.text = String(format:"%.1f", (scoreS! + Double(score)) / (scoreC! + Double(1)))
             })
         loadOtherUsers()
         let alert = UIAlertController(title: "", message: "Judged", preferredStyle: UIAlertController.Style.alert)
@@ -112,6 +114,9 @@ class OtherProfileController: UIViewController, UITextFieldDelegate {
         ratingSlider.setValue(0, animated: false)
         name.text = otherUsers[userID!].name
         userScore.text = otherUsers[userID!].score
+        
+        commentField.attributedPlaceholder =
+        NSAttributedString(string: "Add your anonymous comment here", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
     }
     
     @IBAction func signOut(_ sender: UIButton) {
@@ -121,7 +126,6 @@ class OtherProfileController: UIViewController, UITextFieldDelegate {
           print (signOutError)
             
         }
-        print("signed out")
         self.performSegue(withIdentifier: "signOutSegue", sender: self)
     }
     

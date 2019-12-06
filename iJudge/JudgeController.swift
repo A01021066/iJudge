@@ -18,14 +18,17 @@ class JudgeController: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var userScore: UILabel!
-    var otherUsers : [user] = []
 
+    var otherUsers : [user] = []
+    
 
 
     override func viewDidLoad() {
         _ = Auth.auth().currentUser?.uid
         super.viewDidLoad()
-        loadCurrentUserNameScore()
+        if(otherUsers.count == 0){
+            loadCurrentUserNameScore()
+        }
         setTableViewDelegate()
         tableView.reloadData()
     }
@@ -97,10 +100,10 @@ class JudgeController: UIViewController, UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         print("cell called")
         let cell = tableView.dequeueReusableCell(withIdentifier: "userCell", for: indexPath)
-        var name = cell.viewWithTag(1) as! UILabel
+        let name = cell.viewWithTag(1) as! UILabel
 //        name.text = "WTF"
         name.text = self.otherUsers[indexPath.row].name
-        var score = cell.viewWithTag(2) as! UILabel
+        let score = cell.viewWithTag(2) as! UILabel
 //        score.text = "Hello"
         score.text = self.otherUsers[indexPath.row].score
         return cell

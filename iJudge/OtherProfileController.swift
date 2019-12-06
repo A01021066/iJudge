@@ -50,8 +50,10 @@ class OtherProfileController: UIViewController, UITextFieldDelegate {
             let scoreS = value?["scoreSum"] as? Double
             var comments: [String] = []
             if (value?["comments"] == nil){
-                comments.append(self.commentField.text!)
-                self.ref.child("users/\(uid!)/comments").setValue(comments)
+                    if (!self.commentField.text!.isEmpty){
+                        comments.append(self.commentField.text!)
+                    }
+            self.ref.child("users/\(uid!)/comments").setValue(comments)
             } else {
                 comments = value?["comments"] as! [String]
                 if (!self.commentField.text!.isEmpty){
